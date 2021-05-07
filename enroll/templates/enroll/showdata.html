@@ -1,0 +1,569 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'enroll/css/bootstrap.css' %}">
+    <script src="https://kit.fontawesome.com/bdd89edb33.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" />
+    <style>
+        html {
+            height: 100%;
+        }
+        
+        body {
+            margin: 0;
+        }
+        
+        .bg {
+            justify-content: center;
+            align-items: center;
+            animation: slide 3s ease-in-out infinite alternate;
+            background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+            bottom: 0;
+            left: -50%;
+            opacity: .5;
+            position: fixed;
+            right: -50%;
+            top: 0;
+            z-index: -1;
+        }
+        
+        .bg2 {
+            justify-content: center;
+            align-items: center;
+            animation-direction: alternate-reverse;
+            animation-duration: 4s;
+        }
+        
+        .bg3 {
+            justify-content: center;
+            align-items: center;
+            animation-duration: 5s;
+        }
+        
+        .container {
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, .8);
+            box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+            box-sizing: border-box;
+            left: 50%;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            padding-right: 50px;
+            padding-left: 50px;
+            position: fixed;
+            text-align: center;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 25px;
+            width: 100%;
+        }
+        
+        h2 {
+            font-family: monospace;
+        }
+        
+        @keyframes slide {
+            0% {
+                transform: translateX(-25%);
+            }
+            100% {
+                transform: translateX(25%);
+            }
+        }
+        
+        .navbar-logo {
+            color: #fff;
+            font-size: 30px;
+            font-family: "ubuntu";
+            text-transform: uppercase;
+            font-weight: 700;
+            font-family: "Josefin Sans", sans-serif;
+            background: linear-gradient(to right, #fae310 10%, #fd30d1 50%, #ffc445 80%);
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 1.5s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .navbar-mainbg {
+            background-color: #5161ce;
+            padding: 0px;
+        }
+        
+        #navbarSupportedContent {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        #navbarSupportedContent ul {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        #navbarSupportedContent ul li a i {
+            margin-right: 10px;
+        }
+        
+        #navbarSupportedContent li {
+            list-style-type: none;
+            float: left;
+        }
+        
+        #navbarSupportedContent ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            display: block;
+            padding: 20px 20px;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+        
+        #navbarSupportedContent>ul>li.active>a {
+            color: #5161ce;
+            background-color: transparent;
+            transition: all 0.7s;
+        }
+        
+        #navbarSupportedContent a:not(:only-child):after {
+            content: "\f105";
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 14px;
+            font-family: "Font Awesome 5 Free";
+            display: inline-block;
+            padding-right: 3px;
+            vertical-align: middle;
+            font-weight: 900;
+            transition: 0.5s;
+        }
+        
+        #navbarSupportedContent .active>a:not(:only-child):after {
+            transform: rotate(90deg);
+        }
+        
+        .hori-selector {
+            display: inline-block;
+            position: absolute;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background-color: #fff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-top: 10px;
+        }
+        
+        .hori-selector .right,
+        .hori-selector .left {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            bottom: 10px;
+        }
+        
+        .hori-selector .right {
+            right: -25px;
+        }
+        
+        .hori-selector .left {
+            left: -25px;
+        }
+        
+        .hori-selector .right:before,
+        .hori-selector .left:before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #5161ce;
+        }
+        
+        .hori-selector .right:before {
+            bottom: 0;
+            right: -25px;
+        }
+        
+        .hori-selector .left:before {
+            bottom: 0;
+            left: -25px;
+        }
+        
+        @media(min-width: 992px) {
+            .navbar-expand-custom {
+                -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+                -ms-flex-pack: start;
+                justify-content: flex-start;
+            }
+            .navbar-expand-custom .navbar-nav {
+                -ms-flex-direction: row;
+                flex-direction: row;
+            }
+            .navbar-expand-custom .navbar-toggler {
+                display: none;
+            }
+            .navbar-expand-custom .navbar-collapse {
+                display: -ms-flexbox!important;
+                display: flex!important;
+                -ms-flex-preferred-size: auto;
+                flex-basis: auto;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            #navbarSupportedContent ul li a {
+                padding: 12px 30px;
+            }
+            .hori-selector {
+                margin-top: 0px;
+                margin-left: 10px;
+                border-radius: 0;
+                border-top-left-radius: 25px;
+                border-bottom-left-radius: 25px;
+            }
+            .hori-selector .left,
+            .hori-selector .right {
+                right: 10px;
+            }
+            .hori-selector .left {
+                top: -25px;
+                left: auto;
+            }
+            .hori-selector .right {
+                bottom: -25px;
+            }
+            .hori-selector .left:before {
+                left: -25px;
+                top: -25px;
+            }
+            .hori-selector .right:before {
+                bottom: -25px;
+                left: -25px;
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .footer {
+            margin-bottom: 20px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            min-height: 40px;
+            background: #4c5ed3;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .footer:hover {
+            background: linear-gradient(15deg, #753a88 0%, #cc2b5e 100%);
+            box-shadow: 0 0 10px linear-gradient(15deg, #753a88 0%, #cc2b5e 100%);
+        }
+        
+        .m-auto {
+            position: relative;
+            text-align: center;
+            justify-content: center;
+            display: inline-block;
+            color: rgb(255, 255, 255);
+            letter-spacing: 2px;
+            text-decoration: none;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+        
+        .m-auto:hover {
+            color: yellow;
+            cursor: pointer;
+        }
+        
+        #preloader {
+            overflow: hidden;
+            background-image: linear-gradient(145deg, #C33764 0%, #1D2671 100%);
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: fixed;
+            z-index: 9999;
+            color: #fff;
+        }
+        
+        #preloader .jumper {
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: block;
+            position: absolute;
+            margin: auto;
+            width: 50px;
+            height: 50px;
+        }
+        
+        #preloader .jumper>div {
+            background-color: #fff;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            position: absolute;
+            opacity: 0;
+            width: 50px;
+            height: 50px;
+            -webkit-animation: jumper 1s 0s linear infinite;
+            animation: jumper 1s 0s linear infinite;
+        }
+        
+        #preloader .jumper>div:nth-child(2) {
+            -webkit-animation-delay: 0.33333s;
+            animation-delay: 0.33333s;
+        }
+        
+        #preloader .jumper>div:nth-child(3) {
+            -webkit-animation-delay: 0.66666s;
+            animation-delay: 0.66666s;
+        }
+        
+        @-webkit-keyframes jumper {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            5% {
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes jumper {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            5% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a href="#"><img src="{% static '/images/logo.png' %}" style="height:50px"></a>
+        <a class="navbar-brand navbar-logo" href="#">EDC DATABASE APP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                </div>
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="/enroll/add/">Form</a>
+                </li>
+                <li class="nav-item active px-2">
+                    <a class="nav-link" href="/enroll/show/">Database</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="/login/" style="color: #fae310;">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="container">
+        <h2 class="alert alert-secondary">EDC Database App</h2>{% block content %} {% endblock content %}
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="text-center alert alert-success">Student Information</h4>
+                {% if stu %}
+                <div style="overflow-y: scroll; overflow-x: scroll; height: 500px; ">
+                    <table class="table table-hover table-dark" style="width: 1500px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Birthdate</th>
+                                <th scope="col">Roll</th>
+                                <th scope="col">State</th>
+                                <th scope="col">District</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for st in stu %}
+                            <tr>
+                                <th scope="row">{{st.id}}</th>
+                                <td>{{st.name}}</td>
+                                <td>{{st.email}}</td>
+                                <td>{{st.birthdate}}</td>
+                                <td>{{st.roll}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <form action="{% url 'updatedata' st.id %}" method="POST" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-warning" style="width: 100px;">Edit</button>
+                                    </form>
+                                    <form action="{% url 'deletedata' st.id %}" method="POST" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger" style="width: 100px;" onclick="showAlert()">Delete</button>
+                                    </form>
+                                    <form action="{% url 'showprofile' st.id %}" method="POST" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success" style="width: 100px;">Profile</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <h4 class="text-center alert alert-danger">No Data Found</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="footer d-flex flex-row align-items-center border-top shadow-lg">
+        <a href="https://www.instagram.com/t.h.e.s.k.y.w.a.l.k.e.r/" target="_blank" class="m-auto" style="font-size: 15pt; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-decoration: none;"> EDC Database App | by Ritabrata</a>
+    </div>
+
+
+    <script src="{% static 'enroll/js/jquery.js' %}"></script>
+    <script src="{% static 'enroll/js/popper.js' %}"></script>
+    <script src="{% static 'enroll/js/bootstrap.js' %}"></script>
+    <!-- jQuery -->
+    <script src="{% static 'enroll/js/jquery-2.1.0.min.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+    <!-- Plugins -->
+    <script src="{% static 'enroll/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'enroll/js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'enroll/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'enroll/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'enroll/js/imgfix.min.js' %}"></script>
+
+    <!-- Global Init -->
+    <script src="{% static 'enroll/js/custom.js' %}"></script>
+    <script>
+        function test() {
+            var tabsNewAnim = $('#navbarSupportedContent');
+            var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+            var activeItemNewAnim = tabsNewAnim.find('.active');
+            var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+            var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+            var itemPosNewAnimTop = activeItemNewAnim.position();
+            var itemPosNewAnimLeft = activeItemNewAnim.position();
+            $(".hori-selector").css({
+                "top": itemPosNewAnimTop.top + "px",
+                "left": itemPosNewAnimLeft.left + "px",
+                "height": activeWidthNewAnimHeight + "px",
+                "width": activeWidthNewAnimWidth + "px"
+            });
+            $("#navbarSupportedContent").on("click", "li", function(e) {
+                $('#navbarSupportedContent ul li').removeClass("active");
+                $(this).addClass('active');
+                var activeWidthNewAnimHeight = $(this).innerHeight();
+                var activeWidthNewAnimWidth = $(this).innerWidth();
+                var itemPosNewAnimTop = $(this).position();
+                var itemPosNewAnimLeft = $(this).position();
+                $(".hori-selector").css({
+                    "top": itemPosNewAnimTop.top + "px",
+                    "left": itemPosNewAnimLeft.left + "px",
+                    "height": activeWidthNewAnimHeight + "px",
+                    "width": activeWidthNewAnimWidth + "px"
+                });
+            });
+        }
+        $(document).ready(function() {
+            setTimeout(function() {
+                test();
+            });
+        });
+        $(window).on('resize', function() {
+            setTimeout(function() {
+                test();
+            }, 500);
+        });
+        $(".navbar-toggler").click(function() {
+            setTimeout(function() {
+                test();
+            });
+        });
+        $(function() {
+            var text = $(".text");
+            $(window).scroll(function() {
+                var scroll = $(window).scrollTop();
+
+                if (scroll >= 200) {
+                    text.removeClass("hidden");
+                } else {
+                    text.addClass("hidden");
+                }
+            });
+        });
+
+        function showAlert() {
+            alert("Your data is deleted !!\nYou are being redirected to the Login Page.");
+        }
+    </script>
+
+</body>
+
+</html>
