@@ -29,7 +29,6 @@ This app will allow to collect information about students, display them and also
 4. Install the requirements.
 
     ```
-    cd pollsapp
     pip3 install -r requirements.txt
 
     ```
