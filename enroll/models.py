@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields import NullBooleanField
 
 # Create your models here.
 class User(models.Model):
@@ -8,3 +7,5 @@ class User(models.Model):
     birthdate = models.DateField(null=True)
     roll = models.CharField(max_length=10)
     password = models.CharField(max_length=100)
+    state= models.CharField(max_length=100, null=True)
+    district= models.CharField(max_length=100)
