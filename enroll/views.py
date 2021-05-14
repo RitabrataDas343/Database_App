@@ -1,8 +1,6 @@
-from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from .forms import StudentRegistration
 from .models import User
-from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -17,7 +15,9 @@ def add_show(request):
             bd = ob.cleaned_data['birthdate']
             ro = ob.cleaned_data['roll']
             pw = ob.cleaned_data['password']
-            reg = User(name=nm, email=em, birthdate=bd, roll=ro, password=pw)
+            st = ob.cleaned_data['state']
+            ds = ob.cleaned_data['district']
+            reg = User(name=nm, email=em, birthdate=bd, roll=ro, password=pw, state=st, district = ds)
             reg.save()
             ob = StudentRegistration()     
     else: 
@@ -36,7 +36,9 @@ def show_data(request):
             bd = ob.cleaned_data['birthdate']
             ro = ob.cleaned_data['roll']
             pw = ob.cleaned_data['password']
-            reg = User(name=nm, email=em, birthdate=bd, roll=ro, password=pw)
+            st = ob.cleaned_data['state']
+            ds = ob.cleaned_data['district']
+            reg = User(name=nm, email=em, birthdate=bd, roll=ro, password=pw, state=st, district=ds)
             reg.save()
             ob = StudentRegistration()
     else: 
@@ -64,19 +66,13 @@ def update_data(request, id):
     return render(request, 'enroll/updatestudent.html', {'form':ob})
 
 @login_required
-def home(rq):
-    return render(rq, 'enroll/addandshow.html')
-
-@login_required
-def logout_request(request):
-	logout(request)
-	return redirect("/register/login.html")
-
-@login_required
 def show_profile(request, id):
     if request.method == "POST":
         pi = User.objects.get(pk=id)                    
         return render(request, 'enroll/showprofile.html', {'pi':pi})
+
+
+
 
  
        
