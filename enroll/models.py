@@ -8,4 +8,4 @@ class User(models.Model):
     roll = models.CharField(max_length=10)
     password = models.CharField(max_length=100)
     state= models.CharField(max_length=100, null=True)
-    district= models.CharField(max_length=100)
+    district= models.CharField(max_length=100, null=True)
