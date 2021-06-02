@@ -54,6 +54,7 @@ This app will allow to collect information about students, display them and also
 This app uses the following technologies:
 
 + HTML/CSS/JS
++ Bootstrap
 + Python(Django)
 
 If you want to contribute to this project, then you are very much welcome.
